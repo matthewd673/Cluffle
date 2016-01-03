@@ -1,14 +1,7 @@
-# Cluffle
+# What is RE:Cluffle?
 
-This project is for all those glorious lazy people out there who love reddit a bit too much.
+Cluffle used to be an awesome way to browse reddit while at work, but sadly the creator <a href="http://www.reddit.com/u/Lutan">/u/Lutan</a> decided to take it down.
 
-From now on you are able to browse reddit while at work - it will look like you are using Google.
+This project is in no way mine, but I want to keep Cluffle around for those dreary hours at the office and am working on improving the app as we speak.
 
-<a href="http://www.cluffle.com">Click here to get to the page.</a>
-
-
-# Notice
-
-Just to let you know, because of copyright things and stuff I decided to change some graphics.
-
-Also, PLEASE, don't judge me by that code. Most of it was written at 3-5am. I'm not that sane at that time. I coded cruel, cruel things. Unspeakable things. I'm sorry.
+Again, CLUFFLE IS NOT MINE, I am just a former user who wanted to resurrect this glorious project.
