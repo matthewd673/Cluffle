@@ -38,7 +38,7 @@ class proxy {
 			}
 			if (!$code) {
 				if (!$location) {
-					header("Location: http://proxy.cluffle.com");
+					header("Location: http://recluffle.herokuapp.com/proxy.php");
 				}
 				$counter++;
 				return $this->loadPage($location,$whitelist,$counter);
@@ -86,7 +86,7 @@ class proxy {
 				}
 				$host=$url[1];
 				$url=$url[0];
-				$hits[$mat]="http://proxy.cluffle.com/index.php?url=".$url;
+				$hits[$mat]="http://recluffle.herokuapp.com/proxy.php?url=".$url;
 			}
 			foreach ($match[2] as $mat) {
 				$mat=trim($mat,"\"'");
@@ -104,7 +104,7 @@ class proxy {
 				}
 				$host=$url[1];
 				$url=$url[0];
-				$hits[$mat]="http://proxy.cluffle.com/index.php?url=".$url;
+				$hits[$mat]="http://recluffle.herokuapp.com/proxy.php?url=".$url;
 			}
 			
 			preg_match_all('/href=(["\'])(.*?)\1/', $page, $match);
@@ -125,7 +125,7 @@ class proxy {
 				}
 				$host=$url[1];
 				$url=$url[0];
-				$hits[$mat]="http://proxy.cluffle.com/index.php?url=".$url;
+				$hits[$mat]="http://recluffle.herokuapp.com/proxy.php?url=".$url;
 			}
 			foreach ($match[2] as $mat) {
 				$mat=trim($mat,"\"'");
@@ -143,7 +143,7 @@ class proxy {
 				}
 				$host=$url[1];
 				$url=$url[0];
-				$hits[$mat]="http://proxy.cluffle.com/index.php?url=".$url;
+				$hits[$mat]="http://recluffle.herokuapp.com/proxy.php?url=".$url;
 			}
 			
 			$hits=array_filter($hits);
