@@ -180,7 +180,6 @@ body {
 
 	<span id="footerright">
 		<a class="pullright" href="http://www.reddit.com/u/Lutan" target="_blank">Contact</a>
-		<a class="pullright" href="#" target=_blank>Proxy is down :(</a>
 	</span>
 </div>
 </body>';
