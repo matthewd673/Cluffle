@@ -154,7 +154,8 @@ body {
 	
 	Cluffle is your stealth mode to avoid things like suspicious coworkers and classmates.<br>
 	Reddit is blocked at work? Cluffle also works as a proxy.<br>
-	You want the usual Reddit interface while using the proxy? Just go to <a href="http://proxy.cluffle.com" target=_blank>proxy.cluffle.com</a>.
+	
+	Since Cluffle was taken down, <a href="http://www.reddit.com/u/matthewd673"></a> has been working on it and has republished it on a free Heroku app. This code is not his, but he is working on changes.
 	</p>
 </div>
 <div class="noselect" id="navbar">
@@ -865,7 +866,7 @@ function searchpage($d) {
 				}
 			if ($d["showNav"]) {
 				if (!$d["back"]) {
-					//Kein Zurück
+					//Kein ZurÃ¼ck
 					$back='
 					<td>
 						<span id="Cl1"></span>
@@ -879,7 +880,7 @@ function searchpage($d) {
 						</a>
 					</td>
 					';
-					//Zurück
+					//ZurÃ¼ck
 				}
 				
 				$toggle=0;
