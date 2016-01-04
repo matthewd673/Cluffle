@@ -154,8 +154,7 @@ body {
 	
 	Cluffle is your stealth mode to avoid things like suspicious coworkers and classmates.<br>
 	Reddit is blocked at work? Cluffle also works as a proxy.<br>
-	
-	Since Cluffle was taken down, <a href="http://www.reddit.com/u/matthewd673"></a> has been working on it and has republished it on a free Heroku app. This code is not his, but he is working on changes.
+	You want the usual Reddit interface while using the proxy? Just go to <a href="http://proxy.cluffle.com" target=_blank>proxy.cluffle.com</a>.
 	</p>
 </div>
 <div class="noselect" id="navbar">
@@ -180,6 +179,7 @@ body {
 
 	<span id="footerright">
 		<a class="pullright" href="http://www.reddit.com/u/Lutan" target="_blank">Contact</a>
+		<a class="pullright" href="http://proxy.cluffle.com" target=_blank>Proxypage</a>
 	</span>
 </div>
 </body>';
@@ -310,7 +310,7 @@ function search($request) {
 			$parse=$proxy->parseUrl($entry->data->url,$whitelist);
 			$parse=in_array($parse[2],$whitelist);
 			if ($parse!==false && isset($request["enableproxy"]) && $request["enableproxy"]=="true") {
-				$result["strLink"]=".$entry->data->url;
+				$result["strLink"]="http://proxy.cluffle.com/index.php?url=".$entry->data->url;
 			} else {
 				$result["strLink"]=$entry->data->url;
 			}
@@ -964,7 +964,7 @@ function searchpage($d) {
 	
 	Cluffle is your stealth mode to avoid things like suspicious coworkers and classmates.<br>
 	Reddit is blocked at work? Cluffle also works as a proxy.<br>
-	The proxy no longer works, though you can still view reddit posts
+	You want the usual Reddit interface while using the proxy? Just go to <a href="http://proxy.cluffle.com" target=_blank>proxy.cluffle.com</a>.
 	</p>
 </div>
 		</body>
