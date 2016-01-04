@@ -180,7 +180,7 @@ body {
 
 	<span id="footerright">
 		<a class="pullright" href="http://www.reddit.com/u/Lutan" target="_blank">Contact</a>
-		<a class="pullright" href="http://proxy.cluffle.com" target=_blank>Proxypage</a>
+		<a class="pullright" href="#" target=_blank>Proxy is down :(</a>
 	</span>
 </div>
 </body>';
@@ -311,7 +311,7 @@ function search($request) {
 			$parse=$proxy->parseUrl($entry->data->url,$whitelist);
 			$parse=in_array($parse[2],$whitelist);
 			if ($parse!==false && isset($request["enableproxy"]) && $request["enableproxy"]=="true") {
-				$result["strLink"]="http://proxy.cluffle.com/index.php?url=".$entry->data->url;
+				$result["strLink"]="http://recluffle.herokuapp.com/index.php?url=".$entry->data->url;
 			} else {
 				$result["strLink"]=$entry->data->url;
 			}
@@ -965,7 +965,7 @@ function searchpage($d) {
 	
 	Cluffle is your stealth mode to avoid things like suspicious coworkers and classmates.<br>
 	Reddit is blocked at work? Cluffle also works as a proxy.<br>
-	You want the usual Reddit interface while using the proxy? Just go to <a href="http://proxy.cluffle.com" target=_blank>proxy.cluffle.com</a>.
+	The proxy no longer works, though you can still view reddit posts
 	</p>
 </div>
 		</body>
