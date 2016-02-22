@@ -50,7 +50,7 @@ switch ($request["action"]) {
 
 function frontpage() {
 	global $useragent;
-	
+
 	/*if (loggedin()) {
 		$header='<div id="navbarmenu">
 					<div id="navbarmenuicon"></div>
@@ -87,7 +87,7 @@ function frontpage() {
 					<a href="#">Images</a>
 				</div>';
 	}*/
-	
+
 	$header='<div id="navbarmenu">
 				<div id="navbarmenuicon"></div>
 				<div id="navbarmenubutton">Sign In</div>
@@ -97,7 +97,7 @@ function frontpage() {
 					<a href="#">Cmail</a>
 					<a href="#">Images</a>
 				</div>';
-	
+
 	echo '<!DOCTYPE HTML>
 <head>
 <meta charset="utf-8">
@@ -132,7 +132,7 @@ body {
 	<h2>Help</h2>
 	<div class="closebutton">Close</div>
 	<p>
-		
+
 	</p>
 </div>
 <div id="opensource" class="popup" style="display:none;">
@@ -147,11 +147,11 @@ body {
 	<h2>About</h2>
 	<div class="closebutton">Close</div>
 	<p>Want to use Reddit without people knowing you are using it? This page provides you with the known Google interface for your Reddit needs.<br><br>
-	
+
 	Browse a subreddit by entering it into the box ("/r/internetisbeautiful" or "/r/web_design").<br>
 	Search for a term as you would on reddit.<br>
 	Press the "I\'m feeling lucky" - button to browse a random subreddit.<br><br>
-	
+
 	Cluffle is your stealth mode to avoid things like suspicious coworkers and classmates.<br>
 	Reddit is blocked at work? Cluffle also works as a proxy.<br>
 	You want the usual Reddit interface while using the proxy? Just go to <a href="http://proxy.cluffle.com" target=_blank>proxy.cluffle.com</a>.
@@ -188,11 +188,11 @@ body {
 function search($request) {
 	global $useragent;
 	$q=str_replace("//","/",$request["q"]);
-	
+
 	if (!isset($request["action"]) || $request["action"]=="") {
 		$request["action"]="hot";
 	}
-	
+
 	$sub="";
 	if (isset($request["action"])) {
 		switch ($request["action"]) {
@@ -222,45 +222,45 @@ function search($request) {
 				break;
 		}
 	}
-	
+
 	$page=isset($request["page"]) && $request["page"] > 0 ? $request["page"] : 1;
 	$pages=array();
 	$count=0;
 	$chapter=$_SESSION["chapter"];
 	$anchor="";
-		
+
 	$_SESSION["page"]=$page;
 	$back = $page>1 ? true : false;
 	$curchapter=(($page - 1) - ($page - 1) % 10) / 10 + 1;
-	
+
 	if ($curchapter > $chapter && !isset($_SESSION["chapterbuffer"][$curchapter])) {
 		$count=$curchapter*100;
 		$anchor="&after=".$_SESSION["after"];
 	}
-	
+
 	if (isset($_SESSION["chapterbuffer"][$curchapter])) {
 		$_SESSION["chapterdata"]=$_SESSION["chapterbuffer"][$curchapter][0];
 		$_SESSION["before"]=$_SESSION["chapterbuffer"][$curchapter][1];
 		$_SESSION["after"]=$_SESSION["chapterbuffer"][$curchapter][2];
 	}
-	
-	
+
+
 	//LOAD CURRENT CHAPTER
 	if (!isset($_SESSION["chapterbuffer"][$curchapter]) || $q=="/r/random" || $q!=$_SESSION["query"] || $request["action"]!=$_SESSION["action"]) {
 		$_SESSION["chapterbuffer"]=array();
 		$_SESSION["action"]=$request["action"];
-		
+
 		$urls=array(
 						"www.reddit.com/".trim($q,"/").$sub.".json?limit=100&count=".$count.$anchor,
 						"www.reddit.com/search.json?q=".urlencode($q)."&limit=100&count=".$count.$anchor
 					);
 
 		$data=HTMLrequest($urls);
-		
+
 		if ($q=="/r/random") {
 			$q="/r/".$data->data->children[0]->data->subreddit;
 		}
-		
+
 		$_SESSION["query"]=$q;
 		@$_SESSION["chapterdata"]=$data->data->children;
 		@$_SESSION["before"]=$data->data->before;
@@ -268,7 +268,7 @@ function search($request) {
 		$_SESSION["chapter"]=$curchapter;
 		$_SESSION["chapterbuffer"][$curchapter]=array($_SESSION["chapterdata"],$_SESSION["before"],$_SESSION["after"]);
 	}
-	
+
 	//LOAD NEXT CHAPTER
 	if ($_SESSION["after"]!="" && !isset($_SESSION["chapterbuffer"][$curchapter + 1])) {
 		$count=$curchapter*100;
@@ -280,7 +280,7 @@ function search($request) {
 		$data=HTMLrequest($urls);
 		$_SESSION["chapterbuffer"][$curchapter + 1]=array($data->data->children,$data->data->before,$data->data->after);;
 	}
-	
+
 	$results=array();
 	$start=($page - 1) % 10 * 10;
 	for ($i=$start;$i<$start+10;$i++) {
@@ -333,11 +333,11 @@ function search($request) {
 		} else {
 			$buffer="";
 		}
-		
+
 		$result["nsfw"]=isset($entry->data->over_18) && (boolean) $entry->data->over_18;
-		
+
 		$result["strBeschreibung"]=strip_tags(htmlspecialchars_decode($buffer),'<a>');
-		
+
 		if ($result["strBeschreibung"]=="") {
 			$result["strCreated"]=time_passed($entry->data->created_utc);
 		} else {
@@ -345,8 +345,8 @@ function search($request) {
 		}
 		$results[]=$result;
 	}
-	
-	
+
+
 	$maxchap=count($_SESSION["chapterbuffer"]);
 	$maxpage=ceil(count($_SESSION["chapterbuffer"][$maxchap][0]) / 10);
 	$maxpage=($maxchap - 1) * 10 + $maxpage;
@@ -374,17 +374,17 @@ function search($request) {
 		$pagelinks[]=$curpage;
 		$forward=true;
 	}
-	
+
 	$shownav = $maxpage > 1;
-	
+
 	$backlink='index.php?q='.$q.'&page='.($page - 1);
 	$forwardlink='index.php?q='.$q.'&page='.($page + 1);
-	
+
 	$resultstats="About 2,630,000,000 results (0.26 seconds)";
 	if (empty($results)) {
 		$resultstats="These aren't the results you are looking for. 404.";
 	}
-	
+
 	$resultcount=count($results);
 	$buffer=$request;
 	if (!isset($request["enableproxy"]) || $request["enableproxy"]!="true") {
@@ -397,7 +397,7 @@ function search($request) {
 	}
 	$buffer=array_filter($buffer);
 	$query='<a href="index.php?'.http_build_query($buffer).'">'.$buffertext.'</a>';
-	
+
 	$display=array();
 	$display["results"]=$results;
 	$display["resultstats"]=$resultstats;
@@ -521,13 +521,13 @@ function groups($request) {
 					</div>
 				</div>';
 	}*/
-	
+
 	$header='<div id="navbarmenu">
 					<div id="navbarmenuicon"></div>
 					<div id="navbarmenubutton">Sign In</div>
 				</div>';
-				
-	
+
+
 	echo '
 		<!DOCTYPE HTML>
 		<head>
@@ -557,7 +557,7 @@ function groups($request) {
 		<body>
 			<div id="navbar">
 				<a href="index.php">
-					<img id="logo" src="gfx/logo.png"></img>
+					<img id="logo" src="gfx/logo2.png"></img>
 				</a>
 				<form>
 					<input type="text" id="searchbox" name="q" value="'.$_SESSION["query"].'" autocomplete=off>
@@ -606,7 +606,7 @@ function HTMLrequest($urls,$counter=0) {
 	}
 	global $useragent;
 	$curl=curl_init();
-	
+
 	curl_setopt_array($curl, array(
 		CURLOPT_RETURNTRANSFER => 1,
 		CURLOPT_USERAGENT => $useragent
@@ -615,7 +615,7 @@ function HTMLrequest($urls,$counter=0) {
 		curl_setopt_array($curl, array(
 			CURLOPT_URL => $url
 		));
-		
+
 		$request=curl_exec($curl);
 		$info=curl_getinfo($curl,CURLINFO_REDIRECT_URL);
 		if ($info) {
@@ -624,12 +624,12 @@ function HTMLrequest($urls,$counter=0) {
 			return HTMLrequest($urls,$counter++);
 			die();
 		}
-		
+
 		$info2=curl_getinfo($curl,CURLINFO_HTTP_CODE);
 		if (!isset($info2) || substr($info2,0,1)!="2") {
 			continue;
 		}
-		
+
 		$data=json_decode($request);
 		$echo=$url;
 		if ($request && (!isset($data->error) || empty($data->error))) {
@@ -692,12 +692,12 @@ function searchpage($d) {
 					</div>
 				</div>';
 	}*/
-	
+
 	$header='<div id="navbarmenu">
 					<div id="navbarmenuicon"></div>
 					<div id="navbarmenubutton">Sign In</div>
 				</div>';
-	
+
 	$active=array("","","","","","","","");
 	switch ($d["sub"]) {
 		case "/new":
@@ -733,9 +733,9 @@ function searchpage($d) {
 			$sublink="&action=hot";
 			break;
 	}
-	
+
 	$sublink.=$proxyadd;
-	
+
 	echo '
 		<!DOCTYPE HTML>
 		<head>
@@ -828,8 +828,8 @@ function searchpage($d) {
 				if (empty($d["results"])) {
 					$d["results"]=page404();
 				}
-				
-				
+
+
 				foreach ($d["results"] as $r) {
 					if (isset($r["strOverwrite"])) {
 						$commentgreen='
@@ -846,13 +846,13 @@ function searchpage($d) {
 						$commentstring=$nsfw.$r["numComments"].' comments';
 						$commentgreen='
 						<a target="_blank" href="'.htmlentities($r["strLink"]).'">'.($r["strTitel"]).'</a><br>
-						<a class="resultlink" target=_blank href="'.$commentlink.'">'.$commentstring.'</a> 
-						<span class="resultlink">-</span> 
+						<a class="resultlink" target=_blank href="'.$commentlink.'">'.$commentstring.'</a>
+						<span class="resultlink">-</span>
 						<a class="resultlink" target=_blank href="index.php?q='.$r["strDomain"].'">'.htmlentities($r["strDomain"]).'</a>
 						';
 					}
-					
-					
+
+
 					echo '
 						<div class="resultdiv">
 							'.$commentgreen.'
@@ -881,7 +881,7 @@ function searchpage($d) {
 					';
 					//Zurück
 				}
-				
+
 				$toggle=0;
 				$pagenumbers="";
 				foreach ($d["pagelinks"] as $page) {
@@ -900,7 +900,7 @@ function searchpage($d) {
 								</td>';
 					}
 				}
-				
+
 				if ($d["forward"]) {
 					$next='<td>
 								<a href="'.$d["forwardlink"].$sublink.'"><span id="ffle"></span><span id="weiter" style="font-weight:700;">Next</span></a>
@@ -912,7 +912,7 @@ function searchpage($d) {
 							</td>
 							';
 				}
-				
+
 				echo '
 				<div id="bottomnavwrapper">
 					<table id="bottomnav">
@@ -942,14 +942,14 @@ function searchpage($d) {
 	<h2>Help</h2>
 	<div class="closebutton">Close</div>
 	<p>
-		
+
 	</p>
 </div>
 <div id="opensource" class="popup" style="display:none;">
 	<h2>Open Source</h2>
 	<div class="closebutton">Close</div>
 	<p>
-		The whole project is completely open source and available at <a href="http://www.github.com/Lutron/Cluffle">Github</a>.<br>
+		The whole project is completely open source and available at <a href="https://github.com/matthewd673/recluffle">Github</a>.<br>
 		If you want to help improving the messy project (it\'s based on PHP), feel free to make a pull request. I\'ll also list everyone helping here.
 	</p>
 </div>
@@ -957,11 +957,11 @@ function searchpage($d) {
 	<h2>About</h2>
 	<div class="closebutton">Close</div>
 	<p>Want to use Reddit without people knowing you are using it? This page provides you with the known Google interface for your Reddit needs.<br><br>
-	
+
 	Browse a subreddit by entering it into the box ("/r/internetisbeautiful" or "/r/web_design").<br>
 	Search for a term as you would on reddit.<br>
 	Press the "I\'m feeling lucky" - button to browse a random subreddit.<br><br>
-	
+
 	Cluffle is your stealth mode to avoid things like suspicious coworkers and classmates.<br>
 	Reddit is blocked at work? Cluffle also works as a proxy.<br>
 	You want the usual Reddit interface while using the proxy? Just go to <a href="http://proxy.cluffle.com" target=_blank>proxy.cluffle.com</a>.
@@ -1001,59 +1001,59 @@ function searchpage($d) {
         return $html;
     }
     // close opened html tags
-	
-	
+
+
 function time_passed($timestamp){
     //type cast, current time, difference in timestamps
     $timestamp      = (int) $timestamp;
     $current_time   = time();
     $diff           = $current_time - $timestamp;
-   
+
     //intervals in seconds
     $intervals      = array (
         'year' => 31556926, 'month' => 2629744, 'week' => 604800, 'day' => 86400, 'hour' => 3600, 'minute'=> 60
     );
-   
+
     //now we just find the difference
     if ($diff == 0)
     {
         return 'just now';
-    }   
+    }
 
     if ($diff < 60)
     {
         return $diff == 1 ? $diff . ' second ago' : $diff . ' seconds ago';
-    }       
+    }
 
     if ($diff >= 60 && $diff < $intervals['hour'])
     {
         $diff = floor($diff/$intervals['minute']);
         return $diff == 1 ? $diff . ' minute ago' : $diff . ' minutes ago';
-    }       
+    }
 
     if ($diff >= $intervals['hour'] && $diff < $intervals['day'])
     {
         $diff = floor($diff/$intervals['hour']);
         return $diff == 1 ? $diff . ' hour ago' : $diff . ' hours ago';
-    }   
+    }
 
     if ($diff >= $intervals['day'] && $diff < $intervals['week'])
     {
         $diff = floor($diff/$intervals['day']);
         return $diff == 1 ? $diff . ' day ago' : $diff . ' days ago';
-    }   
+    }
 
     if ($diff >= $intervals['week'] && $diff < $intervals['month'])
     {
         $diff = floor($diff/$intervals['week']);
         return $diff == 1 ? $diff . ' week ago' : $diff . ' weeks ago';
-    }   
+    }
 
     if ($diff >= $intervals['month'] && $diff < $intervals['year'])
     {
         $diff = floor($diff/$intervals['month']);
         return $diff == 1 ? $diff . ' month ago' : $diff . ' months ago';
-    }   
+    }
 
     if ($diff >= $intervals['year'])
     {
@@ -1061,7 +1061,7 @@ function time_passed($timestamp){
         return $diff == 1 ? $diff . ' year ago' : $diff . ' years ago';
     }
 }
-/*	
+/*
 function loggedin() {
 	return isset($_SESSION["active"]) && $_SESSION["active"];
 }
@@ -1073,7 +1073,7 @@ function login() {
 		die();
 	}
 	$curl=curl_init();
-	
+
 	//LOGIN AND SHIT
 	$param=array(
 		"api_type" => "json",
@@ -1095,7 +1095,7 @@ function login() {
 		die();
 	}
 	// END OF LOGIN
-	
+
 	// SUBSCRIBED SUBREDDITS
 	$param=array(
 		"api_type" => "json",
@@ -1103,7 +1103,7 @@ function login() {
 		"passwd" => $_REQUEST["password"],
 		"rem" => true
 	);
-	curl_setopt_array($curl, array(	
+	curl_setopt_array($curl, array(
 			CURLOPT_POST => 0,
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_URL => "http://www.reddit.com/subreddits/mine/subscriber.json",
@@ -1118,7 +1118,7 @@ function login() {
 		die();
 	}
 	// END OF SUBSCRIBED SUBREDDITS
-	
+
 	$subscribed=array();
 	foreach ($data->data->children as $child) {
 		$buffer=array();
@@ -1126,7 +1126,7 @@ function login() {
 		$buffer["url"]=$child->data->url;
 		$subscribed[]=$buffer;
 	}
-	
+
 	$_SESSION["active"]=true;
 	$_SESSION["subscribed"]=$subscribed;
 	$_SESSION["username"]=$_REQUEST["username"];
@@ -1139,7 +1139,7 @@ function login() {
 function page404() {
 	$buffer=array();
 	$return=array();
-	
+
 	$buffer["strLink"]="#";
 	$buffer["strTitel"]="I want to be the very best - like no one ever was.";
 	$buffer["strOverwrite"]="Basically what I want to tell you is: 404.";

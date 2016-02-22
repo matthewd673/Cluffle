@@ -236,7 +236,7 @@ body {
     top: 192px;
 }
 #contentlogo {
-    background-image: url(gfx/logo.png);
+    background-image: url(gfx/logo2.png);
     background-size: 100% 100%;
     margin-left: calc(50% - 134px);
     width: 269px;
@@ -246,7 +246,7 @@ body {
     position: absolute;
     /*572 30*/
     /*552 25*/
-    
+
     width: 572px;
     height: 30px;
     padding: 3px 9px 0 9px;
