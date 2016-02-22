@@ -764,7 +764,7 @@ function searchpage($d) {
 		<body>
 			<div id="navbar">
 				<a href="index.php">
-					<img id="logo" src="gfx/logo.png"></img>
+					<img id="logo" src="gfx/logo2.png"></img>
 				</a>
 				<form>
 					<input type="text" id="searchbox" name="q" value="'.$d["query"].'" autocomplete=off>
