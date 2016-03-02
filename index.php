@@ -310,7 +310,7 @@ function search($request) {
 			$parse=$proxy->parseUrl($entry->data->url,$whitelist);
 			$parse=in_array($parse[2],$whitelist);
 			if ($parse!==false && isset($request["enableproxy"]) && $request["enableproxy"]=="true") {
-				$result["strLink"]="http://proxy.cluffle.com/index.php?url=".$entry->data->url;
+				$result["strLink"]="".$entry->data->url;
 			} else {
 				$result["strLink"]=$entry->data->url;
 			}
