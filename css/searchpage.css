@@ -286,7 +286,7 @@ td:hover > a > .bottomnavtext {
 	vertical-align:bottom;
 }
 #Cl1 {
-	background:url(gfx/Cl.png) no-repeat;
+	background:url(gfx/Cl-2.png) no-repeat;
 	width:45px;
 	height:40px;
 	display:block;
@@ -300,7 +300,7 @@ td:hover > a > .bottomnavtext {
 	margin-right:3px;
 }
 #Cl2 {
-	background:url(gfx/C2.png) no-repeat;
+	background:url(gfx/C2-2.png) no-repeat;
 	float:right;
 	width:65px;
 	height:40px;
@@ -315,7 +315,7 @@ td:hover > a > .bottomnavtext {
 	margin-right:3px;
 }
 .u {
-	background:url(gfx/u.png) no-repeat;
+	background:url(gfx/u2-2.png) no-repeat;
 	width:20px;
 	height:40px;
 	display:block;
@@ -330,7 +330,7 @@ td:hover > a > .bottomnavtext {
 	margin-bottom:10px;
 }
 #ffle {
-	background:url(gfx/ffle.png) no-repeat;
+	background:url(gfx/ffle-2.png) no-repeat;
 	width:71px;
 	height:40px;
 	display:block;
@@ -359,7 +359,7 @@ td:hover > a > .bottomnavtext {
 	clear:right;
 }
 #cur > .u {
-	background:url(gfx/u2.png) no-repeat;
+	background:url(gfx/u-2.png) no-repeat;
 	width:20px;
 	height:40px;
 	display:block;
